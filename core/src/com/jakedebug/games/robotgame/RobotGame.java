@@ -10,8 +10,6 @@ public class RobotGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 
-	//test
-
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
