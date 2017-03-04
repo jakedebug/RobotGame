@@ -2,7 +2,7 @@ package com.jakedebug.games.robotgame.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.jakedebug.games.robotgame.RobotGame;
+import com.jakedebug.games.robotgame.main.RobotGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
