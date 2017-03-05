@@ -4,14 +4,14 @@ size: 128,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-sprites/platform
+platform
   rotate: false
   xy: 2, 2
   size: 58, 58
   orig: 58, 58
   offset: 0, 0
   index: -1
-sprites/standing-right
+standing-right
   rotate: false
   xy: 62, 25
   size: 31, 35

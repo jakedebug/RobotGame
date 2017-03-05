@@ -30,7 +30,8 @@ public class Assets implements Disposable, AssetErrorListener{
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
         try{
-            TexturePacker.process("C:\\Users\\Jake\\Desktop\\Games\\Robot Game\\core\\rawAssets","C:\\Users\\Jake\\Desktop\\Games\\Robot Game\\android\\assets\\images","packedAtlas");
+            //android/assets/..
+            TexturePacker.process("rawAssets","images","packedAtlas");
         } catch (Exception e){
             Gdx.app.error(TAG, "Error packing assets");
             e.printStackTrace();
