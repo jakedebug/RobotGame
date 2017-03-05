@@ -3,7 +3,7 @@ package com.jakedebug.games.robotgame.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.jakedebug.games.robotgame.RobotGame;
+import com.jakedebug.games.robotgame.main.RobotGame;
 
 public class HtmlLauncher extends GwtApplication {
 

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.jakedebug.games.robotgame.RobotGame;
+import com.jakedebug.games.robotgame.main.RobotGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

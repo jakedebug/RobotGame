@@ -2,12 +2,14 @@ package com.jakedebug.games.robotgame.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.jakedebug.games.robotgame.utils.Constants;
+import com.jakedebug.games.robotgame.Assets.Assets;
 import com.jakedebug.games.robotgame.levels.Level;
+import com.jakedebug.games.robotgame.utils.Constants;
 
 public class RobotGameScreen extends ScreenAdapter{
 
@@ -25,6 +27,8 @@ public class RobotGameScreen extends ScreenAdapter{
     @Override
     //Screen becomes current
     public void show() {
+        AssetManager am = new AssetManager();
+        Assets.instance.init(am);
         //create new viewport
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         batch = new SpriteBatch();

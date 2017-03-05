@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.utils.Disposable;
 import com.jakedebug.games.robotgame.utils.Constants;
 
@@ -28,6 +29,13 @@ public class Assets implements Disposable, AssetErrorListener{
         assetManager.setErrorListener(this);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
+        try{
+            TexturePacker.process("C:\\Users\\Jake\\Desktop\\Games\\Robot Game\\core\\rawAssets","C:\\Users\\Jake\\Desktop\\Games\\Robot Game\\android\\assets\\images","packedAtlas");
+        } catch (Exception e){
+            Gdx.app.error(TAG, "Error packing assets");
+            e.printStackTrace();
+        }
+
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 

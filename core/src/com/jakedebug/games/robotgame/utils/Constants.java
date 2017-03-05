@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 
 public class Constants {
 
-    public static final String TEXTURE_ATLAS = " ";
-    public static final String BASIC_PLATFORM = " ";
+    public static final String TEXTURE_ATLAS = "images/packedAtlas.atlas";
+    //TODO: check why name pre-fixed with "sprites/"
+    public static final String BASIC_PLATFORM = "sprites/platform";
     public static final int BASIC_PLATFORM_NINEPATCH_OFFSET = 8;
 
     public static final float WORLD_WIDTH = 160.0F;
