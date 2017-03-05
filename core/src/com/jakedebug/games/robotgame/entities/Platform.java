@@ -25,6 +25,7 @@ public class Platform {
     }
 
     public void render(SpriteBatch batch, ShapeRenderer renderer){
+        //Debug Platform
         renderer.setColor(Color.BLUE);
         renderer.set(ShapeRenderer.ShapeType.Filled);
         renderer.rect(
@@ -32,6 +33,9 @@ public class Platform {
                 bottom,
                 width,
                 height);
+
+        //TODO: Create atlas and ninepatch platform
+        //Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left,bottom,width,height);
     }
 
 }
