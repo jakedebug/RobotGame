@@ -1,6 +1,7 @@
 package com.jakedebug.games.robotgame.main;
 
 import com.badlogic.gdx.Game;
+import com.jakedebug.games.robotgame.screens.RobotGameScreen;
 
 public class RobotGame extends Game {
 
@@ -9,6 +10,6 @@ public class RobotGame extends Game {
 	@Override
 	public void create () {
 		//At game creation, set screen
-		setScreen(new com.jakedebug.games.robotgame.screens.RobotGameScreen());
+		setScreen(new RobotGameScreen());
 	}
 }

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.jakedebug.games.robotgame.Assets.Assets;
+import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.levels.Level;
 import com.jakedebug.games.robotgame.utils.Constants;
 

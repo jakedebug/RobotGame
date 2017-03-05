@@ -1,4 +1,4 @@
-package com.jakedebug.games.robotgame.Assets;
+package com.jakedebug.games.robotgame.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -19,6 +19,7 @@ public class Assets implements Disposable, AssetErrorListener{
     private AssetManager assetManager;
 
     public PlatformAssets platformAssets;
+    public DebugPlayer debugPlayer;
 
     private Assets(){
 
@@ -29,17 +30,18 @@ public class Assets implements Disposable, AssetErrorListener{
         assetManager.setErrorListener(this);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
+        //TODO: potential switch to a gradle build task
         try{
             //android/assets/..
             TexturePacker.process("rawAssets","images","packedAtlas");
         } catch (Exception e){
-            Gdx.app.error(TAG, "Error packing assets");
-            e.printStackTrace();
+            Gdx.app.error(TAG, "Error packing assets" + e.getMessage());
         }
 
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 
         platformAssets = new PlatformAssets(atlas);
+        debugPlayer = new DebugPlayer(atlas);
     }
 
     public class PlatformAssets{
@@ -52,6 +54,14 @@ public class Assets implements Disposable, AssetErrorListener{
                     Constants.BASIC_PLATFORM_NINEPATCH_OFFSET,
                     Constants.BASIC_PLATFORM_NINEPATCH_OFFSET,
                     Constants.BASIC_PLATFORM_NINEPATCH_OFFSET);
+        }
+    }
+
+    public class DebugPlayer{
+        public final TextureAtlas.AtlasRegion debugPlayerRegion;
+
+        public DebugPlayer(TextureAtlas atlas) {
+            debugPlayerRegion = atlas.findRegion(Constants.WARLORD);
         }
     }
 

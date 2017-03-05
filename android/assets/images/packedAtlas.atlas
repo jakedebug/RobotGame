@@ -1,6 +1,6 @@
 
 packedAtlas.png
-size: 128,64
+size: 256,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -11,10 +11,24 @@ platform
   orig: 58, 58
   offset: 0, 0
   index: -1
+skeleton
+  rotate: false
+  xy: 129, 25
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
 standing-right
   rotate: false
   xy: 62, 25
   size: 31, 35
   orig: 31, 35
+  offset: 0, 0
+  index: -1
+warlord
+  rotate: false
+  xy: 95, 27
+  size: 32, 33
+  orig: 32, 33
   offset: 0, 0
   index: -1

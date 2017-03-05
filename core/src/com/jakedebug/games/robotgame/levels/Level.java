@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.entities.Platform;
+import com.jakedebug.games.robotgame.utils.Utils;
 
 public class Level {
 
@@ -18,7 +20,7 @@ public class Level {
     }
 
     private void initDebugLevel(){
-        platformArray.add(new Platform(30,70,150,50));
+        platformArray.add(new Platform(30,70,150,35));
     }
 
     public void update(float delta){}
@@ -27,5 +29,7 @@ public class Level {
         for(Platform p : platformArray){
             p.render(batch,renderer);
         }
+
+        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegion,100,100, 1.0F);
     }
 }

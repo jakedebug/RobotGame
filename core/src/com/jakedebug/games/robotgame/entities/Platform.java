@@ -2,7 +2,7 @@ package com.jakedebug.games.robotgame.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.jakedebug.games.robotgame.Assets.Assets;
+import com.jakedebug.games.robotgame.assets.Assets;
 
 public class Platform {
 
