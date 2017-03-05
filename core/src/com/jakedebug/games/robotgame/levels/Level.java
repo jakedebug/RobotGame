@@ -18,7 +18,7 @@ public class Level {
     }
 
     private void initDebugLevel(){
-        platformArray.add(new Platform(30,70,150,20));
+        platformArray.add(new Platform(30,70,150,50));
     }
 
     public void update(float delta){}

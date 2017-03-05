@@ -1,8 +1,8 @@
 package com.jakedebug.games.robotgame.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.jakedebug.games.robotgame.Assets.Assets;
 
 public class Platform {
 
@@ -25,17 +25,17 @@ public class Platform {
     }
 
     public void render(SpriteBatch batch, ShapeRenderer renderer){
-        //Debug Platform
-        renderer.setColor(Color.BLUE);
-        renderer.set(ShapeRenderer.ShapeType.Filled);
-        renderer.rect(
-                left,
-                bottom,
-                width,
-                height);
+//        //Debug Platform
+//        renderer.setColor(Color.BLUE);
+//        renderer.set(ShapeRenderer.ShapeType.Filled);
+//        renderer.rect(
+//                left,
+//                bottom,
+//                width,
+//                height);
 
         //TODO: Create atlas and ninepatch platform
-        //Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left,bottom,width,height);
+        Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left,bottom,width,height);
     }
 
 }

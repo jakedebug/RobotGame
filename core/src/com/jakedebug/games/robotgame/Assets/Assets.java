@@ -36,7 +36,6 @@ public class Assets implements Disposable, AssetErrorListener{
             e.printStackTrace();
         }
 
-
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 
         platformAssets = new PlatformAssets(atlas);
