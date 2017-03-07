@@ -21,6 +21,10 @@ public class Level {
 
     private void initDebugLevel(){
         platformArray.add(new Platform(30,70,150,35));
+        //Assets.instance.audioAssets.powerUp.loop();
+        //Assets.instance.audioAssets.gameOver.loop();
+        //Assets.instance.audioAssets.music.play();
+        //Assets.instance.audioAssets.music.isLooping();
     }
 
     public void update(float delta){}
@@ -30,6 +34,12 @@ public class Level {
             p.render(batch,renderer);
         }
 
-        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegion,100,100, 1.0F);
+        //TODO: Add player class, position, velocity, gravity
+//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionSkeleton,50,100, 1.0F);
+        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionWarlord,100,115, 1.0F);
+//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionGoblin,85,115, 1.0F);
+//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionBlob,160,115, 1.0F);
+//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionEye,30,90, 1.0F);
+//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionTurtle,125,75, 1.0F);
     }
 }

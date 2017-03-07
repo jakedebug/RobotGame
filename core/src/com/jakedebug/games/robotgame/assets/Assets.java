@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
@@ -20,6 +22,7 @@ public class Assets implements Disposable, AssetErrorListener{
 
     public PlatformAssets platformAssets;
     public DebugPlayer debugPlayer;
+    public AudioAssets audioAssets;
 
     private Assets(){
 
@@ -42,6 +45,7 @@ public class Assets implements Disposable, AssetErrorListener{
 
         platformAssets = new PlatformAssets(atlas);
         debugPlayer = new DebugPlayer(atlas);
+        audioAssets = new AudioAssets();
     }
 
     public class PlatformAssets{
@@ -58,10 +62,34 @@ public class Assets implements Disposable, AssetErrorListener{
     }
 
     public class DebugPlayer{
-        public final TextureAtlas.AtlasRegion debugPlayerRegion;
+        //TODO: add loadPlayer method with String parameter
+        public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionSkeleton;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionGoblin;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionEye;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionBlob;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionTurtle;
 
         public DebugPlayer(TextureAtlas atlas) {
-            debugPlayerRegion = atlas.findRegion(Constants.WARLORD);
+            debugPlayerRegionWarlord = atlas.findRegion(Constants.WARLORD);
+            debugPlayerRegionSkeleton = atlas.findRegion(Constants.SKELETON);
+            debugPlayerRegionGoblin = atlas.findRegion(Constants.GOBLIN);
+            debugPlayerRegionEye = atlas.findRegion(Constants.EYE);
+            debugPlayerRegionTurtle = atlas.findRegion(Constants.TURTLE);
+            debugPlayerRegionBlob = atlas.findRegion(Constants.BLOB);
+        }
+    }
+
+    public class AudioAssets{
+        //TODO: add loadMusic method with String parameter
+        public final Sound powerUp;
+        public final Sound gameOver;
+        public final Music music;
+
+        public AudioAssets(){
+            powerUp = Gdx.audio.newSound(Gdx.files.internal(Constants.SOUNDS_POWERUP));
+            gameOver = Gdx.audio.newSound(Gdx.files.internal(Constants.SOUNDS_GAMEOVER));
+            music = Gdx.audio.newMusic(Gdx.files.internal(Constants.MUSIC_BACKGROUND));
         }
     }
 

@@ -4,6 +4,27 @@ size: 256,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+blob
+  rotate: false
+  xy: 62, 4
+  size: 24, 19
+  orig: 24, 19
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 164, 9
+  size: 19, 27
+  orig: 19, 27
+  offset: 0, 0
+  index: -1
+goblin
+  rotate: false
+  xy: 95, 28
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
 platform
   rotate: false
   xy: 2, 2
@@ -13,7 +34,7 @@ platform
   index: -1
 skeleton
   rotate: false
-  xy: 129, 25
+  xy: 207, 25
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
@@ -25,9 +46,16 @@ standing-right
   orig: 31, 35
   offset: 0, 0
   index: -1
+turtle
+  rotate: false
+  xy: 164, 38
+  size: 41, 22
+  orig: 41, 22
+  offset: 0, 0
+  index: -1
 warlord
   rotate: false
-  xy: 95, 27
+  xy: 130, 27
   size: 32, 33
   orig: 32, 33
   offset: 0, 0

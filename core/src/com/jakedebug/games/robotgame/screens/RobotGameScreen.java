@@ -77,6 +77,9 @@ public class RobotGameScreen extends ScreenAdapter{
     @Override
     public void dispose() {
         batch.dispose();
+        Assets.instance.audioAssets.music.dispose();
+        Assets.instance.audioAssets.powerUp.dispose();
+        Assets.instance.audioAssets.gameOver.dispose();
     }
 
     // Currently unused lifecycle methods
