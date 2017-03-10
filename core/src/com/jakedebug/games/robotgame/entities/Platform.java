@@ -2,6 +2,7 @@ package com.jakedebug.games.robotgame.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.jakedebug.games.robotgame.assets.Assets;
 
 public class Platform {
@@ -34,8 +35,14 @@ public class Platform {
 //                width,
 //                height);
 
-        //TODO: Create atlas and ninepatch platform
-        Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left,bottom,width,height);
+        //offset to account for border
+        Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left-1,bottom-1,width+2,height+2);
+        //renderer.setColor(Color.WHITE);
+        //renderer.rect(getBounds().x,getBounds().y,getBounds().width,getBounds().height);
+    }
+
+    public Rectangle getBounds(){
+        return new Rectangle(left, bottom, width, height);
     }
 
 }
