@@ -6,49 +6,58 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.levels.Level;
 import com.jakedebug.games.robotgame.overlays.Hud;
+import com.jakedebug.games.robotgame.utils.ChaseCam;
 import com.jakedebug.games.robotgame.utils.Constants;
 
 public class RobotGameScreen extends ScreenAdapter{
 
     private static final String TAG = RobotGameScreen.class.getName();
 
-    public static ExtendViewport viewport;
     public static SpriteBatch batch;
     public static ShapeRenderer renderer; //for debug
     public Level level;
     public Hud hud;
+    public ChaseCam chaseCam;
 
     public RobotGameScreen() {
 
     }
 
     @Override
-    //Screen becomes current
     public void show() {
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
-        //create new viewport
-        viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        level = new Level(viewport, hud);
-        hud = new Hud();
+
+
+        chaseCam = new ChaseCam();
+
+        startNewLevel();
+    }
+
+    public void startNewLevel(){
+        level = new Level();
+        hud = new Hud(level);
+
+        chaseCam.camera = level.viewport.getCamera();
+        chaseCam.target = level.getPlayer();
+
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
     public void render(float delta) {
-        viewport.apply();
 
         /*
         UPDATE
          */
         level.update(delta);
+        chaseCam.update();
 
-        //Clear screen, set background color
         Gdx.gl.glClearColor(
                 Constants.BACKGROUND_COLOR.r,
                 Constants.BACKGROUND_COLOR.g,
@@ -56,12 +65,10 @@ public class RobotGameScreen extends ScreenAdapter{
                 Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        renderer.setProjectionMatrix(viewport.getCamera().combined);
+        batch.setProjectionMatrix(level.viewport.getCamera().combined);
+        renderer.setProjectionMatrix(level.viewport.getCamera().combined);
         renderer.setAutoShapeType(true);
 
-        batch.begin();
-        renderer.begin();
 
         /*
         RENDER
@@ -69,27 +76,21 @@ public class RobotGameScreen extends ScreenAdapter{
         level.render(batch,renderer);
 
 
-        batch.end();
-        renderer.end();
-
         hud.render(batch,10,5,200);
     }
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
         hud.viewport.update(width, height, true);
+        level.viewport.update(width, height, true);
+        chaseCam.camera = level.viewport.getCamera();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        Assets.instance.audioAssets.music.dispose();
-        Assets.instance.audioAssets.powerUp.dispose();
-        Assets.instance.audioAssets.gameOver.dispose();
+        hud.dispose();
     }
-
-    // Currently unused lifecycle methods
 
     @Override
     public void hide() {
@@ -108,9 +109,5 @@ public class RobotGameScreen extends ScreenAdapter{
 
     public static ShapeRenderer getRenderer() {
         return renderer;
-    }
-
-    public static SpriteBatch getBatch() {
-        return batch;
     }
 }

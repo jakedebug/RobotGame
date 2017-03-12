@@ -6,40 +6,37 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jakedebug.games.robotgame.entities.Platform;
 import com.jakedebug.games.robotgame.entities.Player;
-import com.jakedebug.games.robotgame.overlays.Hud;
+import com.jakedebug.games.robotgame.utils.Constants;
 
 public class Level {
 
     private static final String TAG = Level.class.getName();
 
-    private Viewport viewport;
+    public Viewport viewport;
     private Array<Platform> platformArray;
-    private static Player player;
-    private Hud hud;
+    private Player player;
 
     public static boolean debugMode = false;
 
-    public Level(Viewport viewport,Hud hud) {
-        this.viewport = viewport;
+    public Level() {
+        this.viewport = new ExtendViewport(Constants.WORLD_WIDTH,Constants.WORLD_HEIGHT);
         this.platformArray = new Array<Platform>();
-        this.hud = hud;
         initDebugLevel();
     }
 
     private void initDebugLevel(){
         platformArray.add(new Platform(30,70,150,35));
+        platformArray.add(new Platform(180, 30, 150, 20));
         player = new Player(new Vector2(100,120), this);
 
         //Assets.instance.audioAssets.powerUp.loop();
         //Assets.instance.audioAssets.gameOver.loop();
         //Assets.instance.audioAssets.music.play();
         //Assets.instance.audioAssets.music.isLooping();
-
-
-
     }
 
     public void update(float delta){
@@ -51,30 +48,29 @@ public class Level {
     }
 
     public void render(SpriteBatch batch, ShapeRenderer renderer) {
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.begin();
+        renderer.begin();
+
         for (Platform p : platformArray) {
-            p.render(batch, renderer);
+            p.render(batch);
         }
 
-        player.render(batch, renderer);
+        player.render(batch);
 
         if (debugMode) {
             drawDebugModeCollisionBounds();
         }
 
+        batch.end();
+        renderer.end();
 
+    }
 
-            //TODO: Add player class, position, velocity, gravity
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionSkeleton,50,100, 1.0F);
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionWarlord,100,115, 1.0F);
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionGoblin,85,115, 1.0F);
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionBlob,160,115, 1.0F);
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionEye,30,90, 1.0F);
-//        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionTurtle,125,75, 1.0F);
-        }
-
-        public Array<Platform> getPlatformArray(){
-            return platformArray;
-        }
+    public Array<Platform> getPlatformArray(){
+        return platformArray;
+    }
 
     public void drawDebugModeCollisionBounds() {
 
@@ -85,7 +81,7 @@ public class Level {
         }
     }
 
-    public static Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 }

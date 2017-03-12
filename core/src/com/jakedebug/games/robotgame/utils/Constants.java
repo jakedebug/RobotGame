@@ -5,11 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 public class Constants {
 
     public static final String TEXTURE_ATLAS = "images/packedAtlas.atlas";
-    //TODO: check why name pre-fixed with "sprites/"
     public static final String BASIC_PLATFORM = "platform";
-    public static final String STANDING_RIGHT_DEBUG = "standing-right";
     public static final String SKELETON = "skeleton";
-    public static final String WARLORD = "warlord";
+    public static final String WARLORD_R = "warlordR";
+    public static final String WARLORD_L = "warlordL";
     public static final String GOBLIN = "goblin";
     public static final String BLOB = "blob";
     public static final String EYE = "eye";

@@ -1,7 +1,6 @@
 package com.jakedebug.games.robotgame.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.screens.RobotGameScreen;
@@ -26,16 +25,7 @@ public class Platform {
         this.height = this.top - this.bottom;
     }
 
-    public void render(SpriteBatch batch, ShapeRenderer renderer){
-//        //Debug Platform
-//        renderer.setColor(Color.BLUE);
-//        renderer.set(ShapeRenderer.ShapeType.Filled);
-//        renderer.rect(
-//                left,
-//                bottom,
-//                width,
-//                height);
-
+    public void render(SpriteBatch batch){
         //offset to account for border
         Assets.instance.platformAssets.ninePatchPlatform.draw(batch,left-1,bottom-1,width+2,height+2);
     }

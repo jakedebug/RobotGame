@@ -24,6 +24,8 @@ public class Assets implements Disposable, AssetErrorListener{
     public DebugPlayer debugPlayer;
     public AudioAssets audioAssets;
 
+    //TODO: add font loader
+
     private Assets(){
 
     }
@@ -33,9 +35,9 @@ public class Assets implements Disposable, AssetErrorListener{
         assetManager.setErrorListener(this);
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
+
         //TODO: potential switch to a gradle build task
         try{
-            //android/assets/..
             TexturePacker.process("rawAssets","images","packedAtlas");
         } catch (Exception e){
             Gdx.app.error(TAG, "Error packing assets" + e.getMessage());
@@ -63,7 +65,9 @@ public class Assets implements Disposable, AssetErrorListener{
 
     public class DebugPlayer{
         //TODO: add loadPlayer method with String parameter
-        public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord_R;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord_L;
+
         public final TextureAtlas.AtlasRegion debugPlayerRegionSkeleton;
         public final TextureAtlas.AtlasRegion debugPlayerRegionGoblin;
         public final TextureAtlas.AtlasRegion debugPlayerRegionEye;
@@ -71,7 +75,8 @@ public class Assets implements Disposable, AssetErrorListener{
         public final TextureAtlas.AtlasRegion debugPlayerRegionTurtle;
 
         public DebugPlayer(TextureAtlas atlas) {
-            debugPlayerRegionWarlord = atlas.findRegion(Constants.WARLORD);
+            debugPlayerRegionWarlord_R = atlas.findRegion(Constants.WARLORD_R);
+            debugPlayerRegionWarlord_L = atlas.findRegion(Constants.WARLORD_L);
             debugPlayerRegionSkeleton = atlas.findRegion(Constants.SKELETON);
             debugPlayerRegionGoblin = atlas.findRegion(Constants.GOBLIN);
             debugPlayerRegionEye = atlas.findRegion(Constants.EYE);
@@ -100,6 +105,8 @@ public class Assets implements Disposable, AssetErrorListener{
 
     @Override
     public void dispose() {
-
+        audioAssets.music.dispose();
+        audioAssets.powerUp.dispose();
+        audioAssets.gameOver.dispose();
     }
 }

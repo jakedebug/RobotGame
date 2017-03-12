@@ -13,13 +13,13 @@ public class Hud {
 
     public final Viewport viewport;
     final BitmapFont font;
-    public String hudString;
+    public Level currentLevel;
 
-    public Hud() {
-        this.viewport = new ExtendViewport(480,480);
+    public Hud(Level currentLevel) {
+        this.viewport = new ExtendViewport(600,600);
         font = new BitmapFont(Gdx.files.internal("fonts/bmFonts/customFont.fnt"),Gdx.files.internal("fonts/bmFonts/customFont.png"),false);
         font.getData().setScale(0.5F);
-        hudString = "DEBUG MODE";
+        this.currentLevel = currentLevel;
     }
 
     public void render(SpriteBatch batch, int lives, int ammo, int score){
@@ -28,20 +28,40 @@ public class Hud {
         batch.begin();
 
         if(Level.debugMode){
-            setHudString("DEBUG MODE");
+            font.draw(batch, "DEBUG MODE", 25,viewport.getWorldHeight()-20);
+            font.draw(batch,
+                    "Player.position: "
+                            + Math.round(currentLevel.getPlayer().getPosition().x)
+                            + ", "
+                            + Math.round(currentLevel.getPlayer().getPosition().y),
+                    25,
+                    viewport.getWorldHeight()-45);
+            font.draw(batch,
+                    "Player.velocity: "
+                            + Math.round(currentLevel.getPlayer().getVelocity().x)
+                            + ", "
+                            + Math.round(currentLevel.getPlayer().getVelocity().y),
+                    25,
+                    viewport.getWorldHeight()-70);
+            font.draw(batch,
+                    "Facing: "
+                            + currentLevel.getPlayer().getFacing(),
+                    25,
+                    viewport.getWorldHeight()-95);
+            font.draw(batch,
+                    "JumpState: "
+                            + currentLevel.getPlayer().getJumpState(),
+                    25,
+                    viewport.getWorldHeight()-120);
         } else {
-            setHudString("NORMAL MODE");
+            font.draw(batch, "SCORE: " + score + "\nLIVES: " + lives + "\nAMMO:  " + ammo, 25,viewport.getWorldHeight()-20);
+
         }
-
-        font.draw(batch, hudString, 25,viewport.getWorldHeight()-20);
-        font.draw(batch, "player.position: " + Math.round(Level.getPlayer().getPosition().x) + ", " + Math.round(Level.getPlayer().getPosition().y), 25,viewport.getWorldHeight()-40);
-
-
         batch.end();
 
     }
 
-    public void setHudString(String hudString) {
-        this.hudString = hudString;
+    public void dispose(){
+        font.dispose();
     }
 }
