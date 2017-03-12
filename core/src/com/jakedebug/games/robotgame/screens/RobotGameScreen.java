@@ -98,4 +98,8 @@ public class RobotGameScreen extends ScreenAdapter{
     public void resume() {
         super.resume();
     }
+
+    public static ShapeRenderer getRenderer() {
+        return renderer;
+    }
 }
