@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.levels.Level;
+import com.jakedebug.games.robotgame.overlays.Hud;
 import com.jakedebug.games.robotgame.utils.Constants;
 
 public class RobotGameScreen extends ScreenAdapter{
@@ -19,6 +20,7 @@ public class RobotGameScreen extends ScreenAdapter{
     public static SpriteBatch batch;
     public static ShapeRenderer renderer; //for debug
     public Level level;
+    public Hud hud;
 
     public RobotGameScreen() {
 
@@ -33,7 +35,8 @@ public class RobotGameScreen extends ScreenAdapter{
         viewport = new ExtendViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
         batch = new SpriteBatch();
         renderer = new ShapeRenderer();
-        level = new Level(viewport);
+        level = new Level(viewport, hud);
+        hud = new Hud();
     }
 
     @Override
@@ -65,13 +68,17 @@ public class RobotGameScreen extends ScreenAdapter{
          */
         level.render(batch,renderer);
 
+
         batch.end();
         renderer.end();
+
+        hud.render(batch,10,5,200);
     }
 
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
+        hud.viewport.update(width, height, true);
     }
 
     @Override
@@ -101,5 +108,9 @@ public class RobotGameScreen extends ScreenAdapter{
 
     public static ShapeRenderer getRenderer() {
         return renderer;
+    }
+
+    public static SpriteBatch getBatch() {
+        return batch;
     }
 }

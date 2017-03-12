@@ -9,18 +9,23 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.jakedebug.games.robotgame.entities.Platform;
 import com.jakedebug.games.robotgame.entities.Player;
+import com.jakedebug.games.robotgame.overlays.Hud;
 
 public class Level {
 
+    private static final String TAG = Level.class.getName();
+
     private Viewport viewport;
     private Array<Platform> platformArray;
-    private Player player;
+    private static Player player;
+    private Hud hud;
 
     public static boolean debugMode = false;
 
-    public Level(Viewport viewport) {
+    public Level(Viewport viewport,Hud hud) {
         this.viewport = viewport;
         this.platformArray = new Array<Platform>();
+        this.hud = hud;
         initDebugLevel();
     }
 
@@ -28,11 +33,13 @@ public class Level {
         platformArray.add(new Platform(30,70,150,35));
         player = new Player(new Vector2(100,120), this);
 
-
         //Assets.instance.audioAssets.powerUp.loop();
         //Assets.instance.audioAssets.gameOver.loop();
         //Assets.instance.audioAssets.music.play();
         //Assets.instance.audioAssets.music.isLooping();
+
+
+
     }
 
     public void update(float delta){
@@ -54,6 +61,8 @@ public class Level {
             drawDebugModeCollisionBounds();
         }
 
+
+
             //TODO: Add player class, position, velocity, gravity
 //        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionSkeleton,50,100, 1.0F);
 //        Utils.drawTextureRegion(batch, Assets.instance.debugPlayer.debugPlayerRegionWarlord,100,115, 1.0F);
@@ -74,5 +83,9 @@ public class Level {
         for (Platform p : platformArray) {
             p.drawBounds();
         }
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }
