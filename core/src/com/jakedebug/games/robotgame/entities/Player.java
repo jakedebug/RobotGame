@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.enums.Enums;
 import com.jakedebug.games.robotgame.levels.Level;
@@ -16,6 +18,7 @@ import com.jakedebug.games.robotgame.utils.Utils;
 public class Player {
     private Vector2 spawnLocation;
     private Vector2 position;
+    private Vector2 positionLastFrame;
     private Vector2 velocity;
 
     private Level currentlevel;
@@ -23,9 +26,12 @@ public class Player {
     private Enums.Facing facing;
     private Enums.JumpState jumpState;
 
+    private long jumpStartTime;
+
     public Player(Vector2 spawnLocation, Level level) {
         this.spawnLocation = spawnLocation;
         position = new Vector2();
+        this.positionLastFrame = new Vector2();
         this.velocity = new Vector2(0.0F,0.0F);
         this.currentlevel = level;
         init();
@@ -37,17 +43,33 @@ public class Player {
 
     public void respawn(){
         position.set(spawnLocation);
+        positionLastFrame.set(position);
         velocity.setZero();
         facing = Enums.Facing.RIGHT;
         jumpState = Enums.JumpState.FALLING;
     }
 
     public void update(float delta){
+        positionLastFrame.set(position);
         velocity.y -= 10;
         position.mulAdd(velocity, delta);
 
+        if(position.y < -50){
+            respawn();
+        }
+
+        if(jumpState != Enums.JumpState.JUMPING){
+            jumpState = Enums.JumpState.FALLING;
+            for(Platform p : currentlevel.getPlatformArray()){
+                if(landedOnPlatform(p)){
+                    jumpState = Enums.JumpState.GROUNDED;
+                    velocity.y = 0;
+                    velocity.x = 0;
+                    position.y = p.top;
+                }
+            }
+        }
         checkInput(delta);
-        checkCollisions();
     }
 
     private void checkInput(float delta) {
@@ -63,6 +85,21 @@ public class Player {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
             respawn();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.J)){
+            switch (jumpState){
+                case GROUNDED:
+                    startJump();
+                    break;
+                case JUMPING:
+                    continueJump();
+                    break;
+                case FALLING:
+                    break;
+            }
+        } else{
+            endJump();
         }
     }
 
@@ -80,13 +117,40 @@ public class Player {
         Utils.drawTextureRegion(batch, region ,position.x,position.y-1, 1.0F);
     }
 
-    public void checkCollisions(){
-        for(Platform platform : currentlevel.getPlatformArray()){
-            if(position.y < platform.top){
-                position.y = platform.top;
-                velocity.y = 0;
-                jumpState = Enums.JumpState.GROUNDED;
+    public boolean landedOnPlatform(Platform platform){
+        boolean leftFootIn = false;
+        boolean rightFootIn = false;
+        boolean stradle = false;
+        if(positionLastFrame.y >= platform.top && position.y < platform.top){
+            float leftFoot = position.x;
+            float rightFoot = position.x+32;
+            leftFootIn = (platform.left < leftFoot && platform.right > leftFoot);
+            rightFootIn = (platform.left < rightFoot && platform.right > rightFoot);
+            stradle = (platform.left > leftFoot && platform.right < rightFoot);
+        }
+        return leftFootIn || rightFootIn || stradle;
+    }
+
+    private void startJump(){
+        jumpState = Enums.JumpState.JUMPING;
+        jumpStartTime = TimeUtils.nanoTime();
+        continueJump();
+    }
+
+    private void continueJump(){
+        if(jumpState == Enums.JumpState.JUMPING){
+            float jumpDuration = (MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime));
+            if(jumpDuration < 0.5){
+                velocity.y = 100;
+            } else {
+                endJump();
             }
+        }
+    }
+
+    private void endJump(){
+        if(jumpState == Enums.JumpState.JUMPING){
+            jumpState = Enums.JumpState.FALLING;
         }
     }
 
