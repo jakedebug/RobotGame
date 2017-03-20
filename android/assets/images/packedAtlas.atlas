@@ -1,68 +1,75 @@
 
 packedAtlas.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 blob
   rotate: false
-  xy: 62, 5
+  xy: 62, 4
   size: 24, 19
   orig: 24, 19
   offset: 0, 0
   index: -1
 eye
   rotate: false
-  xy: 229, 10
+  xy: 306, 33
   size: 19, 27
   orig: 19, 27
   offset: 0, 0
   index: -1
 goblin
   rotate: false
-  xy: 95, 29
+  xy: 95, 28
   size: 33, 32
   orig: 33, 32
   offset: 0, 0
   index: -1
 platform
   rotate: false
-  xy: 2, 3
+  xy: 2, 2
   size: 58, 58
   orig: 58, 58
   offset: 0, 0
   index: -1
 skeleton
   rotate: false
-  xy: 198, 2
+  xy: 275, 25
   size: 29, 35
   orig: 29, 35
   offset: 0, 0
   index: -1
 standing-right
   rotate: false
-  xy: 62, 26
+  xy: 62, 25
   size: 31, 35
   orig: 31, 35
   offset: 0, 0
   index: -1
 turtle
   rotate: false
-  xy: 198, 39
+  xy: 232, 38
   size: 41, 22
   orig: 41, 22
   offset: 0, 0
   index: -1
 warlordL
   rotate: false
-  xy: 130, 28
+  xy: 130, 27
   size: 32, 33
   orig: 32, 33
   offset: 0, 0
   index: -1
 warlordR
   rotate: false
-  xy: 164, 28
+  xy: 164, 27
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+warlordR_headmove
+  rotate: false
+  xy: 198, 27
   size: 32, 33
   orig: 32, 33
   offset: 0, 0

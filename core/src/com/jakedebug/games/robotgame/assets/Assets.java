@@ -6,9 +6,11 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.jakedebug.games.robotgame.utils.Constants;
 
@@ -67,6 +69,7 @@ public class Assets implements Disposable, AssetErrorListener{
         //TODO: add loadPlayer method with String parameter
         public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord_R;
         public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord_L;
+        public final TextureAtlas.AtlasRegion debugPlayerRegionWarlord_R_headmove;
 
         public final TextureAtlas.AtlasRegion debugPlayerRegionSkeleton;
         public final TextureAtlas.AtlasRegion debugPlayerRegionGoblin;
@@ -74,14 +77,24 @@ public class Assets implements Disposable, AssetErrorListener{
         public final TextureAtlas.AtlasRegion debugPlayerRegionBlob;
         public final TextureAtlas.AtlasRegion debugPlayerRegionTurtle;
 
+        public final Animation rightIdleAnimation;
+
         public DebugPlayer(TextureAtlas atlas) {
             debugPlayerRegionWarlord_R = atlas.findRegion(Constants.WARLORD_R);
             debugPlayerRegionWarlord_L = atlas.findRegion(Constants.WARLORD_L);
+            debugPlayerRegionWarlord_R_headmove = atlas.findRegion(Constants.WARLORD_R_HEADMOVE);
             debugPlayerRegionSkeleton = atlas.findRegion(Constants.SKELETON);
             debugPlayerRegionGoblin = atlas.findRegion(Constants.GOBLIN);
             debugPlayerRegionEye = atlas.findRegion(Constants.EYE);
             debugPlayerRegionTurtle = atlas.findRegion(Constants.TURTLE);
             debugPlayerRegionBlob = atlas.findRegion(Constants.BLOB);
+
+            Array<TextureAtlas.AtlasRegion> rightIdleFrames = new Array<TextureAtlas.AtlasRegion>();
+
+            rightIdleFrames.add(debugPlayerRegionWarlord_R);
+            rightIdleFrames.add(debugPlayerRegionWarlord_R_headmove);
+
+            rightIdleAnimation = new Animation(0.35F,rightIdleFrames, Animation.PlayMode.LOOP);
         }
     }
 

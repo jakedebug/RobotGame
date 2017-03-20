@@ -51,16 +51,16 @@ public class Player {
 
     public void update(float delta){
         positionLastFrame.set(position);
-        velocity.y -= 10;
+        velocity.y -= Constants.GRAVITY;
         position.mulAdd(velocity, delta);
 
         if(facing == Enums.Facing.RIGHT){
-            region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_R;
+            region = (TextureRegion) Assets.instance.debugPlayer.rightIdleAnimation.getKeyFrame(MathUtils.nanoToSec * TimeUtils.nanoTime());
         } else {
             region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_L;
         }
 
-        if(position.y < -50){
+        if(position.y < Constants.KILL_PLANE){
             respawn();
         }
 
@@ -96,7 +96,6 @@ public class Player {
         if(Gdx.input.isKeyPressed(Input.Keys.J)){
             switch (jumpState){
                 case GROUNDED:
-                    Gdx.app.log("JUMP_DEBUG", "Jump started");
                     startJump();
                     break;
                 case JUMPING:
@@ -111,7 +110,6 @@ public class Player {
     }
 
     public void render(SpriteBatch batch){
-
         //draw offset for cape to trail below platform
         Utils.drawTextureRegion(batch, region ,position.x,position.y-1, 1.0F);
     }
@@ -122,7 +120,7 @@ public class Player {
         boolean stradle = false;
         if(positionLastFrame.y >= platform.top && position.y < platform.top){
             float leftFoot = position.x;
-            float rightFoot = position.x+32;
+            float rightFoot = position.x+Constants.WARLORD_WIDTH;
             leftFootIn = (platform.left < leftFoot && platform.right > leftFoot);
             rightFootIn = (platform.left < rightFoot && platform.right > rightFoot);
             stradle = (platform.left > leftFoot && platform.right < rightFoot);
@@ -133,19 +131,15 @@ public class Player {
     private void startJump(){
         jumpState = Enums.JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
-        Gdx.app.log("JUMP_DEBUG", "Jump startTime = " + jumpStartTime);
         continueJump();
     }
 
     private void continueJump(){
-        Gdx.app.log("JUMP_DEBUG", "continueJump() called");
         if(jumpState == Enums.JumpState.JUMPING){
             float jumpDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime);
-            Gdx.app.log("JUMP_DEBUG", "Jump duration = " + jumpDuration);
             if(jumpDuration < 0.1){
-                velocity.y = 200;
+                velocity.y = Constants.JUMP_VELOCITY;
             } else {
-                Gdx.app.log("JUMP_DEBUG", "Ending Jump from continueJump()");
                 endJump();
             }
         }
@@ -153,7 +147,6 @@ public class Player {
 
     private void endJump(){
         if(jumpState == Enums.JumpState.JUMPING){
-            Gdx.app.log("JUMP_DEBUG", "Ending Jump from switch");
             jumpState = Enums.JumpState.FALLING;
         }
     }
@@ -167,7 +160,7 @@ public class Player {
     }
 
     public Rectangle getBounds(){
-        return new Rectangle(position.x, position.y, 32,33);
+        return new Rectangle(position.x, position.y, Constants.WARLORD_WIDTH,Constants.WARLORD_HEIGHT);
     }
 
     public Enums.Facing getFacing() {

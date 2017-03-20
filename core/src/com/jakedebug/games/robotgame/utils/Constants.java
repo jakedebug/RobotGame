@@ -7,14 +7,23 @@ public class Constants {
     public static final String TEXTURE_ATLAS = "images/packedAtlas.atlas";
     public static final String BASIC_PLATFORM = "platform";
     public static final String SKELETON = "skeleton";
+
     public static final String WARLORD_R = "warlordR";
     public static final String WARLORD_L = "warlordL";
+    public static final String WARLORD_R_HEADMOVE = "warlordR_headmove";
+    public static final float WARLORD_WIDTH = 32.0F;
+    public static final float WARLORD_HEIGHT = 33.0F;
+
+
     public static final String GOBLIN = "goblin";
     public static final String BLOB = "blob";
     public static final String EYE = "eye";
     public static final String TURTLE = "turtle";
 
     public static final float PLAYER_MOVE_SPEED = 60.0F;
+    public static final float GRAVITY = 10.0F;
+    public static final float KILL_PLANE = -50.0F;
+    public static final float JUMP_VELOCITY = 200;
 
     public static final int BASIC_PLATFORM_NINEPATCH_OFFSET = 8;
 
