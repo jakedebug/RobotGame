@@ -54,7 +54,7 @@ public class Hud {
                     25,
                     viewport.getWorldHeight()-120);
         } else {
-            font.draw(batch, "SCORE: " + score + "\nLIVES: " + lives + "\nAMMO:  " + ammo, 25,viewport.getWorldHeight()-20);
+            font.draw(batch, "FPS: " + score + "\nLIVES: " + lives + "\nAMMO:  " + ammo, 25,viewport.getWorldHeight()-20);
 
         }
         batch.end();

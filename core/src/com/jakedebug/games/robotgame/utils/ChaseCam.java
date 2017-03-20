@@ -12,7 +12,7 @@ public class ChaseCam {
         following = true;
     }
 
-    public void update(){
+    public void update(float delta){
         if(following){
             camera.position.x = target.getPosition().x;
             camera.position.y = target.getPosition().y;

@@ -14,7 +14,7 @@ public class Constants {
     public static final String EYE = "eye";
     public static final String TURTLE = "turtle";
 
-    public static final float PLAYER_MOVE_SPEED = 25.0F;
+    public static final float PLAYER_MOVE_SPEED = 60.0F;
 
     public static final int BASIC_PLATFORM_NINEPATCH_OFFSET = 8;
 

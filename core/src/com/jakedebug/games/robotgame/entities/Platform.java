@@ -3,7 +3,6 @@ package com.jakedebug.games.robotgame.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.jakedebug.games.robotgame.assets.Assets;
-import com.jakedebug.games.robotgame.screens.RobotGameScreen;
 
 public class Platform {
 
@@ -32,10 +31,6 @@ public class Platform {
 
     public Rectangle getBounds(){
         return new Rectangle(left, bottom, width, height);
-    }
-
-    public void drawBounds(){
-        RobotGameScreen.getRenderer().rect(getBounds().x, getBounds().y, getBounds().width,getBounds().height);
     }
 
 }

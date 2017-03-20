@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.levels.Level;
 import com.jakedebug.games.robotgame.overlays.Hud;
@@ -17,7 +16,6 @@ public class RobotGameScreen extends ScreenAdapter{
     private static final String TAG = RobotGameScreen.class.getName();
 
     public static SpriteBatch batch;
-    public static ShapeRenderer renderer; //for debug
     public Level level;
     public Hud hud;
     public ChaseCam chaseCam;
@@ -31,7 +29,6 @@ public class RobotGameScreen extends ScreenAdapter{
         AssetManager am = new AssetManager();
         Assets.instance.init(am);
         batch = new SpriteBatch();
-        renderer = new ShapeRenderer();
 
 
         chaseCam = new ChaseCam();
@@ -56,7 +53,7 @@ public class RobotGameScreen extends ScreenAdapter{
         UPDATE
          */
         level.update(delta);
-        chaseCam.update();
+        chaseCam.update(delta);
 
         Gdx.gl.glClearColor(
                 Constants.BACKGROUND_COLOR.r,
@@ -65,18 +62,16 @@ public class RobotGameScreen extends ScreenAdapter{
                 Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        batch.setProjectionMatrix(level.viewport.getCamera().combined);
-        renderer.setProjectionMatrix(level.viewport.getCamera().combined);
-        renderer.setAutoShapeType(true);
-
+        //batch.setProjectionMatrix(level.viewport.getCamera().combined);
 
         /*
         RENDER
          */
-        level.render(batch,renderer);
+        level.render(batch);
 
-
-        hud.render(batch,10,5,200);
+        hud.render(batch,10,5,Gdx.graphics.getFramesPerSecond());
+//        Gdx.graphics.setVSync(true);
+//        Gdx.graphics.setContinuousRendering(true);
     }
 
     @Override
@@ -105,9 +100,5 @@ public class RobotGameScreen extends ScreenAdapter{
     @Override
     public void resume() {
         super.resume();
-    }
-
-    public static ShapeRenderer getRenderer() {
-        return renderer;
     }
 }

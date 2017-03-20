@@ -3,7 +3,6 @@ package com.jakedebug.games.robotgame.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -47,11 +46,10 @@ public class Level {
         }
     }
 
-    public void render(SpriteBatch batch, ShapeRenderer renderer) {
+    public void render(SpriteBatch batch) {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-        renderer.begin();
 
         for (Platform p : platformArray) {
             p.render(batch);
@@ -59,26 +57,11 @@ public class Level {
 
         player.render(batch);
 
-        if (debugMode) {
-            drawDebugModeCollisionBounds();
-        }
-
         batch.end();
-        renderer.end();
-
     }
 
     public Array<Platform> getPlatformArray(){
         return platformArray;
-    }
-
-    public void drawDebugModeCollisionBounds() {
-
-        player.drawBounds();
-
-        for (Platform p : platformArray) {
-            p.drawBounds();
-        }
     }
 
     public Player getPlayer() {

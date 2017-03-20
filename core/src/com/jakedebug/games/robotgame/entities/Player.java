@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.jakedebug.games.robotgame.assets.Assets;
 import com.jakedebug.games.robotgame.enums.Enums;
 import com.jakedebug.games.robotgame.levels.Level;
-import com.jakedebug.games.robotgame.screens.RobotGameScreen;
 import com.jakedebug.games.robotgame.utils.Constants;
 import com.jakedebug.games.robotgame.utils.Utils;
 
@@ -20,6 +19,7 @@ public class Player {
     private Vector2 position;
     private Vector2 positionLastFrame;
     private Vector2 velocity;
+    private TextureRegion region;
 
     private Level currentlevel;
 
@@ -54,6 +54,12 @@ public class Player {
         velocity.y -= 10;
         position.mulAdd(velocity, delta);
 
+        if(facing == Enums.Facing.RIGHT){
+            region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_R;
+        } else {
+            region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_L;
+        }
+
         if(position.y < -50){
             respawn();
         }
@@ -87,9 +93,10 @@ public class Player {
             respawn();
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.J)){
+        if(Gdx.input.isKeyPressed(Input.Keys.J)){
             switch (jumpState){
                 case GROUNDED:
+                    Gdx.app.log("JUMP_DEBUG", "Jump started");
                     startJump();
                     break;
                 case JUMPING:
@@ -104,14 +111,6 @@ public class Player {
     }
 
     public void render(SpriteBatch batch){
-
-        TextureRegion region;
-
-        if(facing == Enums.Facing.RIGHT){
-            region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_R;
-        } else {
-            region = Assets.instance.debugPlayer.debugPlayerRegionWarlord_L;
-        }
 
         //draw offset for cape to trail below platform
         Utils.drawTextureRegion(batch, region ,position.x,position.y-1, 1.0F);
@@ -134,15 +133,19 @@ public class Player {
     private void startJump(){
         jumpState = Enums.JumpState.JUMPING;
         jumpStartTime = TimeUtils.nanoTime();
+        Gdx.app.log("JUMP_DEBUG", "Jump startTime = " + jumpStartTime);
         continueJump();
     }
 
     private void continueJump(){
+        Gdx.app.log("JUMP_DEBUG", "continueJump() called");
         if(jumpState == Enums.JumpState.JUMPING){
-            float jumpDuration = (MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime));
-            if(jumpDuration < 0.5){
-                velocity.y = 100;
+            float jumpDuration = MathUtils.nanoToSec * (TimeUtils.nanoTime() - jumpStartTime);
+            Gdx.app.log("JUMP_DEBUG", "Jump duration = " + jumpDuration);
+            if(jumpDuration < 0.1){
+                velocity.y = 200;
             } else {
+                Gdx.app.log("JUMP_DEBUG", "Ending Jump from continueJump()");
                 endJump();
             }
         }
@@ -150,6 +153,7 @@ public class Player {
 
     private void endJump(){
         if(jumpState == Enums.JumpState.JUMPING){
+            Gdx.app.log("JUMP_DEBUG", "Ending Jump from switch");
             jumpState = Enums.JumpState.FALLING;
         }
     }
@@ -160,10 +164,6 @@ public class Player {
 
     public Vector2 getVelocity() {
         return velocity;
-    }
-
-    public void drawBounds(){
-        RobotGameScreen.getRenderer().rect(getBounds().x, getBounds().y, getBounds().width,getBounds().height);
     }
 
     public Rectangle getBounds(){
